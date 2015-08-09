@@ -1,0 +1,66 @@
+<style>
+  .ng-enter{
+    transition: .5s;
+    opacity: 0;
+  }
+
+  .ng-enter-active{
+    opacity: 1;
+  }
+
+  .ng-enter-stagger{
+    transition-delay: 0.25s;
+  }
+
+  #sortContainer{
+    margin: 10px 0;
+  }
+
+  #sortContainer .form-control{
+    margin: 5px 0;
+  }
+
+</style>
+
+<h1>{{category.title}}</h1>
+
+<form class='form-inline' id='sortContainer'>
+  <div class='container'>
+    <div class='form-group pull-right'>
+      <select class="form-control" ng-model='sortProducts'>
+        <option value='title'>Name (A-Z)</option>
+        <option value='-title'>Name (Z-A)</option>
+        <option value='sale-price'>Price (High - Low)</option>
+        <option value='-sale-price'>Price (Low - High)</option>
+      </select>
+
+    <!--<form class='navbar-form pull-right' id='searchbar'>-->
+      <div class="input-group">
+        <input type="search" class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model='searchData.$'>
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="submit" disabled><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>
+    </div>
+  <!--</form>-->
+</div>
+</form>
+
+
+<div class="row">
+  <div ng-repeat="product in products | filter: searchData | orderBy: sortProducts" class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img ng-src={{product.images[0].url.https}} alt="...">
+      <div class="caption clearfix">
+        <h3>{{product.title}} <div class='pull-right thumbnail-price-container price'><small class=''>{{product.pricing.formatted.without_tax}}</small></div></h3>
+        <p class='truncate'>{{product.description}}</p>
+
+        <div class='pull-right'>
+          <a href="" class="btn btn-success btn-sm" role="button"><span class='glyphicon glyphicon-shopping-cart'></span> Add to Cart</a>
+
+          <a href="#/product/{{product.id}}" class="btn btn-primary btn-sm" role="button">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
